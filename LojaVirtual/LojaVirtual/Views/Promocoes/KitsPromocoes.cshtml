@@ -1,0 +1,51 @@
+﻿@model IEnumerable<LojaVirtual.Models.ObterPromocoes_Result1>
+@{
+    ViewBag.Title = "Kits Promocionais";
+}
+
+<h2>Kits Promocionais</h2>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nomeKit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.qtd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.preco)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.promocao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.economia)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomeKit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.qtd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.preco)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.promocao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.economia)
+            </td>
+            <td>
+               @Html.ActionLink("Adicionar ao Carrinho", "AdicionarNoCarinho", new { codProduto = item.codProduto, codPromocao = item.codPromocao })
+            </td>
+        </tr>
+    }
+    
+</table>

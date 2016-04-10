@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LojaVirtualModelStoreContainer" CdmEntityContainer="LojaVirtualEntities">
+    <EntitySetMapping Name="KitPromocao">
+      <EntityTypeMapping TypeName="LojaVirtualModel.KitPromocao">
+        <MappingFragment StoreEntitySet="KitPromocao">
+          <ScalarProperty Name="codProduto" ColumnName="codProduto" />
+          <ScalarProperty Name="codPromocao" ColumnName="codPromocao" />
+          <ScalarProperty Name="descricao" ColumnName="descricao" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Produto">
+      <EntityTypeMapping TypeName="LojaVirtualModel.Produto">
+        <MappingFragment StoreEntitySet="Produto">
+          <ScalarProperty Name="codProduto" ColumnName="codProduto" />
+          <ScalarProperty Name="nomeProduto" ColumnName="nomeProduto" />
+          <ScalarProperty Name="preco" ColumnName="preco" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Promocao">
+      <EntityTypeMapping TypeName="LojaVirtualModel.Promocao">
+        <MappingFragment StoreEntitySet="Promocao">
+          <ScalarProperty Name="codPromocao" ColumnName="codPromocao" />
+          <ScalarProperty Name="nomePromocao" ColumnName="nomePromocao" />
+          <ScalarProperty Name="quantidade" ColumnName="quantidade" />
+          <ScalarProperty Name="preco" ColumnName="preco" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="ObterPromocoes" FunctionName="LojaVirtualModel.Store.ObterPromocoes">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="LojaVirtualModel.ObterPromocoes_Result1">
+          <ScalarProperty Name="nomeKit" ColumnName="nomeKit" />
+          <ScalarProperty Name="qtd" ColumnName="qtd" />
+          <ScalarProperty Name="preco" ColumnName="preco" />
+          <ScalarProperty Name="promocao" ColumnName="promocao" />
+          <ScalarProperty Name="economia" ColumnName="economia" />
+          <ScalarProperty Name="codProduto" ColumnName="codProduto" />
+          <ScalarProperty Name="codPromocao" ColumnName="codPromocao" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

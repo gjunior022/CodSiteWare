@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LojaVirtualModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="KitPromocao">
+    <Key>
+      <PropertyRef Name="codProduto" />
+      <PropertyRef Name="codPromocao" />
+    </Key>
+    <Property Name="codProduto" Type="Int32" Nullable="false" />
+    <Property Name="codPromocao" Type="Int32" Nullable="false" />
+    <Property Name="descricao" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Produto" Relationship="Self.FK_KitPromocao_Produto" FromRole="KitPromocao" ToRole="Produto" />
+    <NavigationProperty Name="Promocao" Relationship="Self.FK_KitPromocao_Promocao" FromRole="KitPromocao" ToRole="Promocao" />
+  </EntityType>
+  <EntityType Name="Produto">
+    <Key>
+      <PropertyRef Name="codProduto" />
+    </Key>
+    <Property Name="codProduto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nomeProduto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="preco" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <NavigationProperty Name="KitPromocao" Relationship="Self.FK_KitPromocao_Produto" FromRole="Produto" ToRole="KitPromocao" />
+  </EntityType>
+  <EntityType Name="Promocao">
+    <Key>
+      <PropertyRef Name="codPromocao" />
+    </Key>
+    <Property Name="codPromocao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nomePromocao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="quantidade" Type="Int16" Nullable="false" />
+    <Property Name="preco" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+    <NavigationProperty Name="KitPromocao" Relationship="Self.FK_KitPromocao_Promocao" FromRole="Promocao" ToRole="KitPromocao" />
+  </EntityType>
+  <Association Name="FK_KitPromocao_Produto">
+    <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+    <End Role="KitPromocao" Type="Self.KitPromocao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produto">
+        <PropertyRef Name="codProduto" />
+      </Principal>
+      <Dependent Role="KitPromocao">
+        <PropertyRef Name="codProduto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_KitPromocao_Promocao">
+    <End Role="Promocao" Type="Self.Promocao" Multiplicity="1" />
+    <End Role="KitPromocao" Type="Self.KitPromocao" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Promocao">
+        <PropertyRef Name="codPromocao" />
+      </Principal>
+      <Dependent Role="KitPromocao">
+        <PropertyRef Name="codPromocao" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LojaVirtualEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="KitPromocao" EntityType="Self.KitPromocao" />
+    <EntitySet Name="Produto" EntityType="Self.Produto" />
+    <EntitySet Name="Promocao" EntityType="Self.Promocao" />
+    <AssociationSet Name="FK_KitPromocao_Produto" Association="Self.FK_KitPromocao_Produto">
+      <End Role="Produto" EntitySet="Produto" />
+      <End Role="KitPromocao" EntitySet="KitPromocao" />
+    </AssociationSet>
+    <AssociationSet Name="FK_KitPromocao_Promocao" Association="Self.FK_KitPromocao_Promocao">
+      <End Role="Promocao" EntitySet="Promocao" />
+      <End Role="KitPromocao" EntitySet="KitPromocao" />
+    </AssociationSet>
+    <FunctionImport Name="ObterPromocoes" ReturnType="Collection(LojaVirtualModel.ObterPromocoes_Result1)" />
+  </EntityContainer>
+  <ComplexType Name="ObterProdutosEPromocoes_Result">
+    <Property Type="String" Name="nomeProduto" Nullable="false" MaxLength="50" />
+    <Property Type="Int16" Name="qtd" Nullable="false" />
+    <Property Type="Decimal" Name="preco" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="String" Name="promo" Nullable="false" MaxLength="50" />
+  </ComplexType>
+  <ComplexType Name="ObterPromocoes_Result">
+    <Property Type="String" Name="Column1" Nullable="false" MaxLength="54" />
+    <Property Type="Int16" Name="Quantidade" Nullable="false" />
+    <Property Type="Decimal" Name="Preço" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="String" Name="Promoção" Nullable="false" MaxLength="50" />
+    <Property Type="Decimal" Name="Economia" Nullable="true" Precision="25" Scale="2" />
+  </ComplexType>
+  <ComplexType Name="ObterPromocoes_Result1">
+    <Property Type="String" Name="nomeKit" Nullable="false" MaxLength="54" />
+    <Property Type="Int16" Name="qtd" Nullable="false" />
+    <Property Type="Decimal" Name="preco" Nullable="false" Precision="18" Scale="2" />
+    <Property Type="String" Name="promocao" Nullable="false" MaxLength="50" />
+    <Property Type="Decimal" Name="economia" Nullable="true" Precision="25" Scale="2" />
+    <Property Type="Int32" Name="codProduto" Nullable="false" />
+    <Property Type="Int32" Name="codPromocao" Nullable="false" />
+  </ComplexType>
+</Schema>

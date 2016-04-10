@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LojaVirtualModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="KitPromocao">
+          <Key>
+            <PropertyRef Name="codProduto" />
+            <PropertyRef Name="codPromocao" />
+          </Key>
+          <Property Name="codProduto" Type="int" Nullable="false" />
+          <Property Name="codPromocao" Type="int" Nullable="false" />
+          <Property Name="descricao" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="Produto">
+          <Key>
+            <PropertyRef Name="codProduto" />
+          </Key>
+          <Property Name="codProduto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomeProduto" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="preco" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Promocao">
+          <Key>
+            <PropertyRef Name="codPromocao" />
+          </Key>
+          <Property Name="codPromocao" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nomePromocao" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="quantidade" Type="smallint" Nullable="false" />
+          <Property Name="preco" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_KitPromocao_Produto">
+          <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+          <End Role="KitPromocao" Type="Self.KitPromocao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="codProduto" />
+            </Principal>
+            <Dependent Role="KitPromocao">
+              <PropertyRef Name="codProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KitPromocao_Promocao">
+          <End Role="Promocao" Type="Self.Promocao" Multiplicity="1" />
+          <End Role="KitPromocao" Type="Self.KitPromocao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Promocao">
+              <PropertyRef Name="codPromocao" />
+            </Principal>
+            <Dependent Role="KitPromocao">
+              <PropertyRef Name="codPromocao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ObterProdutosEPromocoes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="ObterPromocoes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="LojaVirtualModelStoreContainer">
+          <EntitySet Name="KitPromocao" EntityType="Self.KitPromocao" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Produto" EntityType="Self.Produto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Promocao" EntityType="Self.Promocao" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_KitPromocao_Produto" Association="Self.FK_KitPromocao_Produto">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="KitPromocao" EntitySet="KitPromocao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KitPromocao_Promocao" Association="Self.FK_KitPromocao_Promocao">
+            <End Role="Promocao" EntitySet="Promocao" />
+            <End Role="KitPromocao" EntitySet="KitPromocao" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LojaVirtualModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="KitPromocao">
+          <Key>
+            <PropertyRef Name="codProduto" />
+            <PropertyRef Name="codPromocao" />
+          </Key>
+          <Property Name="codProduto" Type="Int32" Nullable="false" />
+          <Property Name="codPromocao" Type="Int32" Nullable="false" />
+          <Property Name="descricao" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Produto" Relationship="Self.FK_KitPromocao_Produto" FromRole="KitPromocao" ToRole="Produto" />
+          <NavigationProperty Name="Promocao" Relationship="Self.FK_KitPromocao_Promocao" FromRole="KitPromocao" ToRole="Promocao" />
+        </EntityType>
+        <EntityType Name="Produto">
+          <Key>
+            <PropertyRef Name="codProduto" />
+          </Key>
+          <Property Name="codProduto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomeProduto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="preco" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="KitPromocao" Relationship="Self.FK_KitPromocao_Produto" FromRole="Produto" ToRole="KitPromocao" />
+        </EntityType>
+        <EntityType Name="Promocao">
+          <Key>
+            <PropertyRef Name="codPromocao" />
+          </Key>
+          <Property Name="codPromocao" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nomePromocao" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="quantidade" Type="Int16" Nullable="false" />
+          <Property Name="preco" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
+          <NavigationProperty Name="KitPromocao" Relationship="Self.FK_KitPromocao_Promocao" FromRole="Promocao" ToRole="KitPromocao" />
+        </EntityType>
+        <Association Name="FK_KitPromocao_Produto">
+          <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+          <End Role="KitPromocao" Type="Self.KitPromocao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Produto">
+              <PropertyRef Name="codProduto" />
+            </Principal>
+            <Dependent Role="KitPromocao">
+              <PropertyRef Name="codProduto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_KitPromocao_Promocao">
+          <End Role="Promocao" Type="Self.Promocao" Multiplicity="1" />
+          <End Role="KitPromocao" Type="Self.KitPromocao" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Promocao">
+              <PropertyRef Name="codPromocao" />
+            </Principal>
+            <Dependent Role="KitPromocao">
+              <PropertyRef Name="codPromocao" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LojaVirtualEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="KitPromocao" EntityType="Self.KitPromocao" />
+          <EntitySet Name="Produto" EntityType="Self.Produto" />
+          <EntitySet Name="Promocao" EntityType="Self.Promocao" />
+          <AssociationSet Name="FK_KitPromocao_Produto" Association="Self.FK_KitPromocao_Produto">
+            <End Role="Produto" EntitySet="Produto" />
+            <End Role="KitPromocao" EntitySet="KitPromocao" />
+          </AssociationSet>
+          <AssociationSet Name="FK_KitPromocao_Promocao" Association="Self.FK_KitPromocao_Promocao">
+            <End Role="Promocao" EntitySet="Promocao" />
+            <End Role="KitPromocao" EntitySet="KitPromocao" />
+          </AssociationSet>
+          <FunctionImport Name="ObterPromocoes" ReturnType="Collection(LojaVirtualModel.ObterPromocoes_Result1)" />
+        </EntityContainer>
+        <ComplexType Name="ObterProdutosEPromocoes_Result">
+          <Property Type="String" Name="nomeProduto" Nullable="false" MaxLength="50" />
+          <Property Type="Int16" Name="qtd" Nullable="false" />
+          <Property Type="Decimal" Name="preco" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="promo" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="ObterPromocoes_Result">
+          <Property Type="String" Name="Column1" Nullable="false" MaxLength="54" />
+          <Property Type="Int16" Name="Quantidade" Nullable="false" />
+          <Property Type="Decimal" Name="Preço" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="Promoção" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="Economia" Nullable="true" Precision="25" Scale="2" />
+        </ComplexType>
+        <ComplexType Name="ObterPromocoes_Result1">
+          <Property Type="String" Name="nomeKit" Nullable="false" MaxLength="54" />
+          <Property Type="Int16" Name="qtd" Nullable="false" />
+          <Property Type="Decimal" Name="preco" Nullable="false" Precision="18" Scale="2" />
+          <Property Type="String" Name="promocao" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="economia" Nullable="true" Precision="25" Scale="2" />
+          <Property Type="Int32" Name="codProduto" Nullable="false" />
+          <Property Type="Int32" Name="codPromocao" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LojaVirtualModelStoreContainer" CdmEntityContainer="LojaVirtualEntities">
+          <EntitySetMapping Name="KitPromocao">
+            <EntityTypeMapping TypeName="LojaVirtualModel.KitPromocao">
+              <MappingFragment StoreEntitySet="KitPromocao">
+                <ScalarProperty Name="codProduto" ColumnName="codProduto" />
+                <ScalarProperty Name="codPromocao" ColumnName="codPromocao" />
+                <ScalarProperty Name="descricao" ColumnName="descricao" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Produto">
+            <EntityTypeMapping TypeName="LojaVirtualModel.Produto">
+              <MappingFragment StoreEntitySet="Produto">
+                <ScalarProperty Name="codProduto" ColumnName="codProduto" />
+                <ScalarProperty Name="nomeProduto" ColumnName="nomeProduto" />
+                <ScalarProperty Name="preco" ColumnName="preco" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Promocao">
+            <EntityTypeMapping TypeName="LojaVirtualModel.Promocao">
+              <MappingFragment StoreEntitySet="Promocao">
+                <ScalarProperty Name="codPromocao" ColumnName="codPromocao" />
+                <ScalarProperty Name="nomePromocao" ColumnName="nomePromocao" />
+                <ScalarProperty Name="quantidade" ColumnName="quantidade" />
+                <ScalarProperty Name="preco" ColumnName="preco" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="ObterPromocoes" FunctionName="LojaVirtualModel.Store.ObterPromocoes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="LojaVirtualModel.ObterPromocoes_Result1">
+                <ScalarProperty Name="nomeKit" ColumnName="nomeKit" />
+                <ScalarProperty Name="qtd" ColumnName="qtd" />
+                <ScalarProperty Name="preco" ColumnName="preco" />
+                <ScalarProperty Name="promocao" ColumnName="promocao" />
+                <ScalarProperty Name="economia" ColumnName="economia" />
+                <ScalarProperty Name="codProduto" ColumnName="codProduto" />
+                <ScalarProperty Name="codPromocao" ColumnName="codPromocao" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

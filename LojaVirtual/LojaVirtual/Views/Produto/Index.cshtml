@@ -1,0 +1,40 @@
+﻿@model IEnumerable<LojaVirtual.Models.Produto>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Novo", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.nomeProduto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.preco)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.nomeProduto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.preco)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id=item.codProduto }) |
+            @Html.ActionLink("Detalhes", "Details", new { id=item.codProduto }) |
+            @Html.ActionLink("Excluir", "Delete", new { id=item.codProduto }) |
+            @Html.ActionLink("Adicionar ao Carrinho", "AdicionarNoCarinho", new { id = item.codProduto }) |
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="709fe752ee204047ae7a81d7904d6459" Name="Diagram1">
+        <EntityTypeShape EntityType="LojaVirtualModel.KitPromocao" Width="1.5" PointX="4.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="LojaVirtualModel.Produto" Width="1.5" PointX="1.25" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LojaVirtualModel.Promocao" Width="1.5" PointX="6.75" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="LojaVirtualModel.FK_KitPromocao_Produto" ManuallyRouted="false" />
+        <AssociationConnector Association="LojaVirtualModel.FK_KitPromocao_Promocao" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
